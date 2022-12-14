@@ -12,7 +12,6 @@
 		C71B45D52938CA83000A2B23 /* CoreData_Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C71B45D32938CA83000A2B23 /* CoreData_Test.xcdatamodeld */; };
 		C71B45D72938CA85000A2B23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C71B45D62938CA85000A2B23 /* Assets.xcassets */; };
 		C71B45DA2938CA85000A2B23 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C71B45D82938CA85000A2B23 /* LaunchScreen.storyboard */; };
-		C71B45E22938CB35000A2B23 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B45E12938CB35000A2B23 /* NavigationController.swift */; };
 		C71B45E42938CB52000A2B23 /* ContinentTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B45E32938CB52000A2B23 /* ContinentTableVC.swift */; };
 		C71B45EB2938CDF3000A2B23 /* ContinentTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B45EA2938CDF3000A2B23 /* ContinentTableCell.swift */; };
 		C71B45ED293E2130000A2B23 /* CountryTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B45EC293E2130000A2B23 /* CountryTableVC.swift */; };
@@ -30,7 +29,6 @@
 		C71B45D62938CA85000A2B23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C71B45D92938CA85000A2B23 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C71B45DB2938CA85000A2B23 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C71B45E12938CB35000A2B23 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		C71B45E32938CB52000A2B23 /* ContinentTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentTableVC.swift; sourceTree = "<group>"; };
 		C71B45EA2938CDF3000A2B23 /* ContinentTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentTableCell.swift; sourceTree = "<group>"; };
 		C71B45EC293E2130000A2B23 /* CountryTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableVC.swift; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 		C71B45E52938CC25000A2B23 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C71B45E12938CB35000A2B23 /* NavigationController.swift */,
 				C71B45E32938CB52000A2B23 /* ContinentTableVC.swift */,
 				C71B45EC293E2130000A2B23 /* CountryTableVC.swift */,
 				C71B45F02948C122000A2B23 /* CityTableVC.swift */,
@@ -201,7 +198,6 @@
 			files = (
 				C71B45F12948C122000A2B23 /* CityTableVC.swift in Sources */,
 				C71B45D52938CA83000A2B23 /* CoreData_Test.xcdatamodeld in Sources */,
-				C71B45E22938CB35000A2B23 /* NavigationController.swift in Sources */,
 				C71B45E42938CB52000A2B23 /* ContinentTableVC.swift in Sources */,
 				C71B45EF293E21F1000A2B23 /* CountryTableCell.swift in Sources */,
 				C71B45ED293E2130000A2B23 /* CountryTableVC.swift in Sources */,

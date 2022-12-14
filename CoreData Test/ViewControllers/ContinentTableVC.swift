@@ -12,7 +12,7 @@ class ContinentTableVC: UITableViewController {
     var continents: [String] = []
     
     private let addButton: UIBarButtonItem = {
-        let item = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(test))
+        let item = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(showAlert))
         return item
     }()
     
@@ -59,10 +59,6 @@ class ContinentTableVC: UITableViewController {
         alertController.textFields![0].returnKeyType = .done
         alertController.textFields![0].autocapitalizationType = .words
         self.present(alertController, animated: true)
-    }
-
-    @objc private func test(){
-        self.present(CityVC(), animated: true)
     }
     
     //MARK: - TableView DataSource

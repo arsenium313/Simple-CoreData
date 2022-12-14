@@ -73,11 +73,12 @@ class CityTableVC: UITableViewController {
  
     //MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let vcToPush = CityVC()
-        self.present(vcToPush, animated: true)
+        let vc = CityVC()
+        let nav = UINavigationController(rootViewController: vc)
+        present(nav, animated: true)
         return nil
     }
-    
+
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] action, view, succses in
             self.cities.remove(at: indexPath.row)
