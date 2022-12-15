@@ -18,7 +18,7 @@
 		C71B45EF293E21F1000A2B23 /* CountryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B45EE293E21F1000A2B23 /* CountryTableCell.swift */; };
 		C71B45F12948C122000A2B23 /* CityTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B45F02948C122000A2B23 /* CityTableVC.swift */; };
 		C71B45F32948C1DD000A2B23 /* CityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B45F22948C1DD000A2B23 /* CityTableCell.swift */; };
-		C71B45F82948C456000A2B23 /* CityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71B45F72948C456000A2B23 /* CityVC.swift */; };
+		C7AB3087294B47A30001E2CF /* TestClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB3086294B47A20001E2CF /* TestClasses.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 		C71B45EE293E21F1000A2B23 /* CountryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableCell.swift; sourceTree = "<group>"; };
 		C71B45F02948C122000A2B23 /* CityTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTableVC.swift; sourceTree = "<group>"; };
 		C71B45F22948C1DD000A2B23 /* CityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTableCell.swift; sourceTree = "<group>"; };
-		C71B45F72948C456000A2B23 /* CityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityVC.swift; sourceTree = "<group>"; };
+		C7AB3086294B47A20001E2CF /* TestClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClasses.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +68,7 @@
 		C71B45C92938CA83000A2B23 /* CoreData Test */ = {
 			isa = PBXGroup;
 			children = (
+				C7AB3085294B47420001E2CF /* Custom Classes */,
 				C71B45E62938CC36000A2B23 /* Supporting Files */,
 				C71B45E72938CC87000A2B23 /* Delegates */,
 				C71B45E82938CC94000A2B23 /* CoreData */,
@@ -83,7 +84,6 @@
 				C71B45E32938CB52000A2B23 /* ContinentTableVC.swift */,
 				C71B45EC293E2130000A2B23 /* CountryTableVC.swift */,
 				C71B45F02948C122000A2B23 /* CityTableVC.swift */,
-				C71B45F72948C456000A2B23 /* CityVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -119,10 +119,18 @@
 			isa = PBXGroup;
 			children = (
 				C71B45EA2938CDF3000A2B23 /* ContinentTableCell.swift */,
-				C71B45F22948C1DD000A2B23 /* CityTableCell.swift */,
 				C71B45EE293E21F1000A2B23 /* CountryTableCell.swift */,
+				C71B45F22948C1DD000A2B23 /* CityTableCell.swift */,
 			);
 			path = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		C7AB3085294B47420001E2CF /* Custom Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C7AB3086294B47A20001E2CF /* TestClasses.swift */,
+			);
+			path = "Custom Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,13 +206,13 @@
 			files = (
 				C71B45F12948C122000A2B23 /* CityTableVC.swift in Sources */,
 				C71B45D52938CA83000A2B23 /* CoreData_Test.xcdatamodeld in Sources */,
+				C7AB3087294B47A30001E2CF /* TestClasses.swift in Sources */,
 				C71B45E42938CB52000A2B23 /* ContinentTableVC.swift in Sources */,
 				C71B45EF293E21F1000A2B23 /* CountryTableCell.swift in Sources */,
 				C71B45ED293E2130000A2B23 /* CountryTableVC.swift in Sources */,
 				C71B45CB2938CA83000A2B23 /* AppDelegate.swift in Sources */,
 				C71B45F32948C1DD000A2B23 /* CityTableCell.swift in Sources */,
 				C71B45EB2938CDF3000A2B23 /* ContinentTableCell.swift in Sources */,
-				C71B45F82948C456000A2B23 /* CityVC.swift in Sources */,
 				C71B45CD2938CA83000A2B23 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
