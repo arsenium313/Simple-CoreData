@@ -19,7 +19,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = UINavigationController(rootViewController: ContinentTableVC())
+      
+        let tabBarVC = UITabBarController()
+        
+        let continentVC = UINavigationController(rootViewController: ContinentTableVC())
+        let countryVC = UINavigationController(rootViewController: CountryTableVC())
+        let cityVC = UINavigationController(rootViewController: CityTableVC())
+        
+        let continentBarItem = UITabBarItem()
+        continentBarItem.image = UIImage(systemName: "triangle.fill")
+        continentBarItem.title = "Continents"
+        continentVC.tabBarItem = continentBarItem
+        
+        let countryBarItem = UITabBarItem()
+        countryBarItem.image = UIImage(systemName: "circle.fill")
+        countryBarItem.title = "Countries"
+        countryVC.tabBarItem = countryBarItem
+        
+        let cityBarItem = UITabBarItem()
+        cityBarItem.image = UIImage(systemName: "rectangle.fill")
+        cityBarItem.title = "Cities"
+        cityVC.tabBarItem = cityBarItem
+        
+        
+        tabBarVC.viewControllers = [continentVC, countryVC, cityVC]
+        window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }
 
