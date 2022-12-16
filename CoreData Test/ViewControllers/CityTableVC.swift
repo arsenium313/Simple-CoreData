@@ -27,7 +27,7 @@ class CityTableVC: UITableViewController {
     
     private func setupTableView(){
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        self.tableView.register(CityTableCell.self, forCellReuseIdentifier: "Cell")
+        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
         self.navigationItem.title = "Cities"
     }
     
@@ -37,8 +37,9 @@ class CityTableVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CityTableCell
-        cell.nameLabel.text = cities[indexPath.row].city
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        cell.setupUI(for: .city)
+        cell.cityLabel.text = cities[indexPath.row].city
         cell.continentLabel.text = cities[indexPath.row].continent.continent
         cell.countryLabel.text = cities[indexPath.row].country.country
         return cell
