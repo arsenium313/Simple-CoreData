@@ -27,7 +27,7 @@ class CountryTableVC: UITableViewController {
     
     private func setupTableView(){
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        self.tableView.register(CountryTableCell.self, forCellReuseIdentifier: "Cell")
+        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
         self.navigationItem.title = "Countries"
     }
     
@@ -61,8 +61,9 @@ class CountryTableVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CountryTableCell
-        cell.nameLabel.text = countries[indexPath.row].country
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        cell.setupUI(for: .country)
+        cell.countryLabel.text = countries[indexPath.row].country
         cell.continentLabel.text = countries[indexPath.row].continent.continent
         return cell
     }

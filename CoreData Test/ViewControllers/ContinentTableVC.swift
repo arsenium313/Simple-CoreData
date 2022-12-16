@@ -28,7 +28,7 @@ class ContinentTableVC: UITableViewController {
     
     private func setupTableView(){
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        self.tableView.register(ContinentTableCell.self, forCellReuseIdentifier: "Cell")
+        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: "Cell")
         self.navigationItem.title = "Continents"
     }
     
@@ -83,8 +83,9 @@ class ContinentTableVC: UITableViewController {
     
     //MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ContinentTableCell
-        cell.nameLabel.text = continents[indexPath.row].continent
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        cell.setupUI(for: .continent)
+        cell.continentLabel.text = continents[indexPath.row].continent
         return cell
     }
 
