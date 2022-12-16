@@ -14,13 +14,12 @@ class CountryTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        print(countries.count)
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print("VIew Will Appear")
         tableView.reloadData()
     }
+    
     //MARK: - SetupUI
     private func setupUI(){
         setupTableView()
@@ -33,14 +32,16 @@ class CountryTableVC: UITableViewController {
     }
     
     //MARK: - AlertController
-     private func showAlert(){
+    private func showAlert(at indexPath: Int){
         let alertController = UIAlertController(title: "Add City", message: nil, preferredStyle: .alert)
         
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-        
-            self.tableView.reloadData()
+            let continent = countries[indexPath].continent
+            let country = countries[indexPath]
+            let city = City(continent: continent, country: country, city: text)
+            cities.append(city)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -53,6 +54,7 @@ class CountryTableVC: UITableViewController {
         alertController.textFields![0].autocapitalizationType = .words
         self.present(alertController, animated: true)
     }
+    
     // MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return countries.count
@@ -67,7 +69,7 @@ class CountryTableVC: UITableViewController {
 
     //MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        showAlert()
+        showAlert(at: indexPath.row)
         return nil
     }
 

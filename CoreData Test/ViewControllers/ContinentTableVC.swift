@@ -68,8 +68,6 @@ class ContinentTableVC: UITableViewController {
             if text.isEmpty{return}
             let country = Country(continent: continents[indexPath], country: text)
             countries.append(country)
-            print(countries.count)
-            self.tableView.reloadData()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
