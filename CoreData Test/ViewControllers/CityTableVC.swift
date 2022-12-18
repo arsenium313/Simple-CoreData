@@ -33,22 +33,22 @@ class CityTableVC: UITableViewController {
     
     // MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cities.count
+        return citiesTestArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         cell.setupUI(for: .city)
-        cell.cityLabel.text = cities[indexPath.row].city
-        cell.continentLabel.text = cities[indexPath.row].continent.continent
-        cell.countryLabel.text = cities[indexPath.row].country.country
+        cell.cityLabel.text = citiesTestArray[indexPath.row].city
+        cell.continentLabel.text = citiesTestArray[indexPath.row].continent.continent
+        cell.countryLabel.text = citiesTestArray[indexPath.row].country.country
         return cell
     }
  
     //MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] action, view, succses in
-            cities.remove(at: indexPath.row)
+            citiesTestArray.remove(at: indexPath.row)
             self.tableView.reloadData()
         }
         let swipe = UISwipeActionsConfiguration(actions: [delete])

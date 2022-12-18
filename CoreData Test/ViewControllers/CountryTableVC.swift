@@ -38,10 +38,10 @@ class CountryTableVC: UITableViewController {
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            let continent = countries[indexPath].continent
-            let country = countries[indexPath]
-            let city = City(continent: continent, country: country, city: text)
-            cities.append(city)
+            let continent = countriesTestArray[indexPath].continent
+            let country = countriesTestArray[indexPath]
+            let city = CityTestClass(continent: continent, country: country, city: text)
+            citiesTestArray.append(city)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -57,14 +57,14 @@ class CountryTableVC: UITableViewController {
     
     // MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countries.count
+        return countriesTestArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         cell.setupUI(for: .country)
-        cell.countryLabel.text = countries[indexPath.row].country
-        cell.continentLabel.text = countries[indexPath.row].continent.continent
+        cell.countryLabel.text = countriesTestArray[indexPath.row].country
+        cell.continentLabel.text = countriesTestArray[indexPath.row].continent.continent
         return cell
     }
 
@@ -76,7 +76,7 @@ class CountryTableVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] action, view, succses in
-            countries.remove(at: indexPath.row)
+            countriesTestArray.remove(at: indexPath.row)
             self.tableView.reloadData()
         }
         let swipe = UISwipeActionsConfiguration(actions: [delete])

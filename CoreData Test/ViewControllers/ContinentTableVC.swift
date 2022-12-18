@@ -9,6 +9,8 @@ import UIKit
 
 class ContinentTableVC: UITableViewController {
     
+    var continents: [Continent] = []
+    
     private let addButton: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(showAlertAddContinent))
         return item
@@ -44,7 +46,7 @@ class ContinentTableVC: UITableViewController {
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            let continent = Continent(name: text)
+            let continent = ContinentTetsClass(name: text)
             continents.append(continent)
             self.tableView.reloadData()
         }
@@ -66,8 +68,8 @@ class ContinentTableVC: UITableViewController {
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            let country = Country(continent: continents[indexPath], country: text)
-            countries.append(country)
+            let country = CountryTestClass(continent: continents[indexPath], country: text)
+            countriesTestArray.append(country)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -85,7 +87,7 @@ class ContinentTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         cell.setupUI(for: .continent)
-        cell.continentLabel.text = continents[indexPath.row].continent
+        cell.continentLabel.text = continents[indexPath.row].name ?? "NILL!"
         return cell
     }
 
