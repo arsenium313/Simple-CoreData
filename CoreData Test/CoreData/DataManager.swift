@@ -40,22 +40,59 @@ class DataManager{
         saveContext()
     }
     
+    //MARK: - Create Entity
     func continent(name: String) -> Continent {
         let continent = Continent(context: persistentContainer.viewContext)
         continent.name = name
         return continent
     }
     
-    func country(name: String) -> Country {
+    func country(name: String, continent: Continent) -> Country {
         let country = Country(context: persistentContainer.viewContext)
         country.name = name
+        continent.addToCountries(country)
         return country
     }
     
-    func city(name: String) -> City {
+    func city(name: String, continent: Continent, country: Country) -> City {
         let city = City(context: persistentContainer.viewContext)
         city.name = name
         return city
     }
+    
+    //MARK: - Fetch
+    func continentFetch() -> [Continent] {
+        let request: NSFetchRequest<Continent> = Continent.fetchRequest()
+        var continents: [Continent] = []
+        
+        do {
+            try continents = persistentContainer.viewContext.fetch(request)
+        } catch let error {
+            print("error - \(error)")
+        }
+        
+        return continents
+    }
+    
+    func countryFetch() -> [Country]{
+        let request: NSFetchRequest<Country> = Country.fetchRequest()
+        var countries: [Country] = []
+        
+        do {
+            try countries = persistentContainer.viewContext.fetch(request)
+        } catch let error{
+            print("error - \(error)")
+        }
+        
+        return countries
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

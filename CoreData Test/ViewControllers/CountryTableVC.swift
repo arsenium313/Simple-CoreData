@@ -9,14 +9,17 @@ import UIKit
 
 class CountryTableVC: UITableViewController {
 
+    var countries: [Country] = []
     
     //MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.countries = DataManager.shared.countryFetch()
         setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        self.countries = DataManager.shared.countryFetch()
         tableView.reloadData()
     }
     
@@ -57,14 +60,14 @@ class CountryTableVC: UITableViewController {
     
     // MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countriesTestArray.count
+        return self.countries.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         cell.setupUI(for: .country)
-        cell.countryLabel.text = countriesTestArray[indexPath.row].country
-        cell.continentLabel.text = countriesTestArray[indexPath.row].continent.continent
+        cell.countryLabel.text = countries[indexPath.row].name
+        cell.continentLabel.text = countries[indexPath.row].continent!.name
         return cell
     }
 
@@ -75,9 +78,11 @@ class CountryTableVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] action, view, succses in
-            countriesTestArray.remove(at: indexPath.row)
-            self.tableView.reloadData()
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, succses in
+            let country = self?.countries[indexPath.row]
+            DataManager.shared.delete(country)
+            self?.countries.remove(at: indexPath.row)
+            self?.tableView.reloadData()
         }
         let swipe = UISwipeActionsConfiguration(actions: [delete])
         swipe.performsFirstActionWithFullSwipe = true
