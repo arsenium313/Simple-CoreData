@@ -9,14 +9,17 @@ import UIKit
 
 class CityTableVC: UITableViewController {
 
+    var cities: [City] = []
     
     //MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
+        cities = DataManager.shared.fetchCities()
         setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        cities = DataManager.shared.fetchCities()
         self.tableView.reloadData()
     }
     
@@ -37,18 +40,21 @@ class CityTableVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let city = cities[indexPath.row]
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         cell.setupUI(for: .city)
-        cell.cityLabel.text = cities[indexPath.row].city
-        cell.continentLabel.text = cities[indexPath.row].continent.continent
-        cell.countryLabel.text = cities[indexPath.row].country.country
+        cell.cityLabel.text = city.name
+        cell.continentLabel.text = city.continent?.name
+        cell.countryLabel.text = city.country?.name
         return cell
     }
  
     //MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] action, view, succses in
-            cities.remove(at: indexPath.row)
+            let city = self.cities[indexPath.row]
+            DataManager.shared.delete(city)
+            self.cities.remove(at: indexPath.row)
             self.tableView.reloadData()
         }
         let swipe = UISwipeActionsConfiguration(actions: [delete])

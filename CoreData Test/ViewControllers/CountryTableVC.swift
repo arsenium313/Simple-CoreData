@@ -9,14 +9,17 @@ import UIKit
 
 class CountryTableVC: UITableViewController {
 
+    var countries: [Country] = []
     
     //MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.countries = DataManager.shared.fetchCountries()
         setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        self.countries = DataManager.shared.fetchCountries()
         tableView.reloadData()
     }
     
@@ -32,16 +35,18 @@ class CountryTableVC: UITableViewController {
     }
     
     //MARK: - AlertController
-    private func showAlert(at indexPath: Int){
+    private func addCityAlert(at index: Int){
         let alertController = UIAlertController(title: "Add City", message: nil, preferredStyle: .alert)
         
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            let continent = countries[indexPath].continent
-            let country = countries[indexPath]
-            let city = City(continent: continent, country: country, city: text)
-            cities.append(city)
+            
+            let country = self.countries[index]
+            let continent = country.continent
+            let city = DataManager.shared.city(name: text, continent: continent!, country: country)
+            DataManager.shared.saveContext()
+            
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -57,27 +62,29 @@ class CountryTableVC: UITableViewController {
     
     // MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return countries.count
+        return self.countries.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         cell.setupUI(for: .country)
-        cell.countryLabel.text = countries[indexPath.row].country
-        cell.continentLabel.text = countries[indexPath.row].continent.continent
+        cell.countryLabel.text = countries[indexPath.row].name
+        cell.continentLabel.text = countries[indexPath.row].continent!.name
         return cell
     }
 
     //MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        showAlert(at: indexPath.row)
+        addCityAlert(at: indexPath.row)
         return nil
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] action, view, succses in
-            countries.remove(at: indexPath.row)
-            self.tableView.reloadData()
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, succses in
+            let country = self?.countries[indexPath.row]
+            DataManager.shared.delete(country)
+            self?.countries.remove(at: indexPath.row)
+            self?.tableView.reloadData()
         }
         let swipe = UISwipeActionsConfiguration(actions: [delete])
         swipe.performsFirstActionWithFullSwipe = true

@@ -6,16 +6,16 @@
 //
 
 import Foundation
-var continents: [Continent] = []
-var countries: [Country] = []
-var cities: [City] = []
+var continentsTestArray: [ContinentTetsClass] = []
+var countriesTestArray: [CountryTestClass] = []
+var citiesTestArray: [CityTestClass] = []
 
 //MARK: - Continent
-class Continent {
+class ContinentTetsClass {
     
     var continent: String
-    var country: Country?
-    var city: City?
+    var country: CountryTestClass?
+    var city: CityTestClass?
 
     init(name continent: String) {
         self.continent = continent
@@ -23,26 +23,26 @@ class Continent {
 }
 
 //MARK: - Country
-class Country {
+class CountryTestClass {
     
-    var continent: Continent
+    var continent: ContinentTetsClass
     var country: String
-    var city: City?
+    var city: CityTestClass?
     
-    init(continent: Continent, country: String) {
+    init(continent: ContinentTetsClass, country: String) {
         self.continent = continent
         self.country = country
     }
 }
 
 //MARK: - City
-class City {
+class CityTestClass {
     
-    var continent: Continent
-    var country: Country
+    var continent: ContinentTetsClass
+    var country: CountryTestClass
     var city: String
     
-    init(continent: Continent, country: Country, city: String) {
+    init(continent: ContinentTetsClass, country: CountryTestClass, city: String) {
         self.continent = continent
         self.country = country
         self.city = city

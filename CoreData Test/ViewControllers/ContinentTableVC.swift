@@ -9,6 +9,9 @@ import UIKit
 
 class ContinentTableVC: UITableViewController {
     
+    var continents: [Continent] = []
+    var rowBeenSelected: Int?
+    
     private let addButton: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(showAlertAddContinent))
         return item
@@ -17,6 +20,7 @@ class ContinentTableVC: UITableViewController {
     //MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
+        continents = DataManager.shared.fetchContinents()
         setupUI()
     }
 
@@ -44,8 +48,9 @@ class ContinentTableVC: UITableViewController {
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            let continent = Continent(name: text)
-            continents.append(continent)
+            let continent = DataManager.shared.continent(name: text)
+            DataManager.shared.saveContext()
+            self.continents.append(continent)
             self.tableView.reloadData()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
@@ -60,14 +65,16 @@ class ContinentTableVC: UITableViewController {
         self.present(alertController, animated: true)
     }
     
-    private func showAlertAddCountry(at indexPath: Int){
+    private func showAlertAddCountry(at index: Int){
         let alertController = UIAlertController(title: "Add Country", message: nil, preferredStyle: .alert)
         
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            let country = Country(continent: continents[indexPath], country: text)
-            countries.append(country)
+            
+            let continent = self.continents[index]
+            let country = DataManager.shared.country(name: text, continent: continent)
+            DataManager.shared.saveContext()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -85,7 +92,7 @@ class ContinentTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
         cell.setupUI(for: .continent)
-        cell.continentLabel.text = continents[indexPath.row].continent
+        cell.continentLabel.text = continents[indexPath.row].name ?? "NILL!"
         return cell
     }
 
@@ -95,14 +102,17 @@ class ContinentTableVC: UITableViewController {
 
     //MARK: - Tableview Delegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        rowBeenSelected = indexPath.row
         showAlertAddCountry(at: indexPath.row)
         return nil
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "Delete") { [self] action, view, succses in
-            continents.remove(at: indexPath.row)
-            self.tableView.reloadData()
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, succses) in
+            let continent = self?.continents[indexPath.row]
+            DataManager.shared.delete(continent)
+            self?.continents.remove(at: indexPath.row)
+            self?.tableView.reloadData()
         }
         let swipe = UISwipeActionsConfiguration(actions: [delete])
         swipe.performsFirstActionWithFullSwipe = true
