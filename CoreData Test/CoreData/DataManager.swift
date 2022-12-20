@@ -57,11 +57,13 @@ class DataManager{
     func city(name: String, continent: Continent, country: Country) -> City {
         let city = City(context: persistentContainer.viewContext)
         city.name = name
+        continent.addToCities(city)
+        country.addToCities(city)
         return city
     }
     
     //MARK: - Fetch
-    func continentFetch() -> [Continent] {
+    func fetchContinents() -> [Continent] {
         let request: NSFetchRequest<Continent> = Continent.fetchRequest()
         var continents: [Continent] = []
         
@@ -74,19 +76,31 @@ class DataManager{
         return continents
     }
     
-    func countryFetch() -> [Country]{
+    func fetchCountries() -> [Country]{
         let request: NSFetchRequest<Country> = Country.fetchRequest()
         var countries: [Country] = []
         
         do {
             try countries = persistentContainer.viewContext.fetch(request)
-        } catch let error{
+        } catch let error {
             print("error - \(error)")
         }
         
         return countries
     }
     
+    func fetchCities() -> [City] {
+        let request: NSFetchRequest<City> = City.fetchRequest()
+        var cities: [City] = []
+        
+        do {
+            try cities = persistentContainer.viewContext.fetch(request)
+        } catch let error {
+            print("error - \(error)")
+        }
+        
+        return cities
+    }
     
     
     

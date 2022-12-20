@@ -20,7 +20,7 @@ class ContinentTableVC: UITableViewController {
     //MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        continents = DataManager.shared.continentFetch()
+        continents = DataManager.shared.fetchContinents()
         setupUI()
     }
 
@@ -65,15 +65,14 @@ class ContinentTableVC: UITableViewController {
         self.present(alertController, animated: true)
     }
     
-    private func showAlertAddCountry(at indexPath: Int){
+    private func showAlertAddCountry(at index: Int){
         let alertController = UIAlertController(title: "Add Country", message: nil, preferredStyle: .alert)
         
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            guard let rowBeenSelected = self.rowBeenSelected else {return}
             
-            let continent = self.continents[rowBeenSelected]
+            let continent = self.continents[index]
             let country = DataManager.shared.country(name: text, continent: continent)
             DataManager.shared.saveContext()
         }

@@ -14,12 +14,12 @@ class CountryTableVC: UITableViewController {
     //MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.countries = DataManager.shared.countryFetch()
+        self.countries = DataManager.shared.fetchCountries()
         setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.countries = DataManager.shared.countryFetch()
+        self.countries = DataManager.shared.fetchCountries()
         tableView.reloadData()
     }
     
@@ -35,16 +35,18 @@ class CountryTableVC: UITableViewController {
     }
     
     //MARK: - AlertController
-    private func showAlert(at indexPath: Int){
+    private func addCityAlert(at index: Int){
         let alertController = UIAlertController(title: "Add City", message: nil, preferredStyle: .alert)
         
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            let continent = countriesTestArray[indexPath].continent
-            let country = countriesTestArray[indexPath]
-            let city = CityTestClass(continent: continent, country: country, city: text)
-            citiesTestArray.append(city)
+            
+            let country = self.countries[index]
+            let continent = country.continent
+            let city = DataManager.shared.city(name: text, continent: continent!, country: country)
+            DataManager.shared.saveContext()
+            
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -73,7 +75,7 @@ class CountryTableVC: UITableViewController {
 
     //MARK: - TableView Delegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        showAlert(at: indexPath.row)
+        addCityAlert(at: indexPath.row)
         return nil
     }
 
