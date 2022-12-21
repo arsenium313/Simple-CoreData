@@ -10,8 +10,7 @@ import UIKit
 class ContinentTableVC: UITableViewController {
     
     var continents: [Continent] = []
-    var rowBeenSelected: Int?
-    
+
     private let addButton: UIBarButtonItem = {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(showAlertAddContinent))
         return item
@@ -48,10 +47,15 @@ class ContinentTableVC: UITableViewController {
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            let continent = DataManager.shared.continent(name: text)
-            DataManager.shared.saveContext()
-            self.continents.append(continent)
-            self.tableView.reloadData()
+            // проверяем есть ли такое значение уже в массиве
+            if (self.continents.first(where: { $0.name == text}) != nil) {
+                self.alredyHasItemAlert()
+            }else{
+                let continent = DataManager.shared.continent(name: text)
+                DataManager.shared.saveContext()
+                self.continents.append(continent)
+                self.tableView.reloadData()
+            }
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -71,11 +75,17 @@ class ContinentTableVC: UITableViewController {
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            
             let continent = self.continents[index]
-            let country = DataManager.shared.country(name: text, continent: continent)
-            DataManager.shared.saveContext()
+            let countries = DataManager.shared.fetchCountries(withPredicate: true, continent: continent)
+            if (countries.first(where: {$0.name == text}) != nil){
+                self.alredyHasItemAlert()
+            } else {
+                _ = DataManager.shared.country(name: text, continent: continent)
+                DataManager.shared.saveContext()
+                self.tableView.reloadData()
+            }
         }
+        
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
         alertController.addAction(add)
@@ -88,11 +98,22 @@ class ContinentTableVC: UITableViewController {
         self.present(alertController, animated: true)
     }
     
+    private func alredyHasItemAlert(){
+        let alert = UIAlertController(title: "Alert", message: "Already have this", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive)
+        alert.addAction(cancel)
+        self.present(alert, animated: true)
+        
+    }
+    
     //MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        let continent = continents[indexPath.row]
         cell.setupUI(for: .continent)
-        cell.continentLabel.text = continents[indexPath.row].name ?? "NILL!"
+        cell.continentLabel.text = continent.name ?? "NILL!"
+        cell.countryLabel.text = "country counter - \(String(describing: continent.countries!.count))"
+        cell.cityLabel.text = "cities counter - \(String(describing: continent.cities!.count))"
         return cell
     }
 
@@ -102,7 +123,6 @@ class ContinentTableVC: UITableViewController {
 
     //MARK: - Tableview Delegate
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        rowBeenSelected = indexPath.row
         showAlertAddCountry(at: indexPath.row)
         return nil
     }

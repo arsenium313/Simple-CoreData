@@ -19,7 +19,6 @@
 		C73ACCE3294F435400076B41 /* Continent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73ACCDD294F435400076B41 /* Continent+CoreDataProperties.swift */; };
 		C73ACCE5294F435400076B41 /* City+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73ACCDF294F435400076B41 /* City+CoreDataProperties.swift */; };
 		C73ACCE7294F435400076B41 /* Country+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73ACCE1294F435400076B41 /* Country+CoreDataProperties.swift */; };
-		C7AB3087294B47A30001E2CF /* TestClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB3086294B47A20001E2CF /* TestClasses.swift */; };
 		C7AB3089294C42500001E2CF /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB3088294C42500001E2CF /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +37,6 @@
 		C73ACCDD294F435400076B41 /* Continent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Continent+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C73ACCDF294F435400076B41 /* City+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "City+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C73ACCE1294F435400076B41 /* Country+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C7AB3086294B47A20001E2CF /* TestClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClasses.swift; sourceTree = "<group>"; };
 		C7AB3088294C42500001E2CF /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,7 +70,6 @@
 		C71B45C92938CA83000A2B23 /* CoreData Test */ = {
 			isa = PBXGroup;
 			children = (
-				C7AB3085294B47420001E2CF /* Custom Classes */,
 				C71B45E62938CC36000A2B23 /* Supporting Files */,
 				C71B45E72938CC87000A2B23 /* Delegates */,
 				C71B45E82938CC94000A2B23 /* CoreData */,
@@ -129,14 +126,6 @@
 				C7AB3088294C42500001E2CF /* TableViewCell.swift */,
 			);
 			path = "Custom Cells";
-			sourceTree = "<group>";
-		};
-		C7AB3085294B47420001E2CF /* Custom Classes */ = {
-			isa = PBXGroup;
-			children = (
-				C7AB3086294B47A20001E2CF /* TestClasses.swift */,
-			);
-			path = "Custom Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,7 +203,6 @@
 				C71B45F12948C122000A2B23 /* CityTableVC.swift in Sources */,
 				C73ACCE7294F435400076B41 /* Country+CoreDataProperties.swift in Sources */,
 				C71B45D52938CA83000A2B23 /* CoreData_Test.xcdatamodeld in Sources */,
-				C7AB3087294B47A30001E2CF /* TestClasses.swift in Sources */,
 				C71B45E42938CB52000A2B23 /* ContinentTableVC.swift in Sources */,
 				C71B45ED293E2130000A2B23 /* CountryTableVC.swift in Sources */,
 				C7AB3089294C42500001E2CF /* TableViewCell.swift in Sources */,

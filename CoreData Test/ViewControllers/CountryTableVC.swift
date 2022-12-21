@@ -14,12 +14,12 @@ class CountryTableVC: UITableViewController {
     //MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.countries = DataManager.shared.fetchCountries()
+        self.countries = DataManager.shared.fetchCountries(withPredicate: false, continent: nil)
         setupUI()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.countries = DataManager.shared.fetchCountries()
+        self.countries = DataManager.shared.fetchCountries(withPredicate: false, continent: nil)
         tableView.reloadData()
     }
     
@@ -41,12 +41,17 @@ class CountryTableVC: UITableViewController {
         let add = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?[0].text else {return}
             if text.isEmpty{return}
-            
             let country = self.countries[index]
             let continent = country.continent
-            let city = DataManager.shared.city(name: text, continent: continent!, country: country)
-            DataManager.shared.saveContext()
+            let cities = DataManager.shared.fetchCities(withPredicate: true, country: country)
             
+            if (cities.first(where: {$0.name == text}) != nil){
+                self.alredyHasItemAlert()
+            } else {
+                _ = DataManager.shared.city(name: text, continent: continent!, country: country)
+                DataManager.shared.saveContext()
+                self.tableView.reloadData()
+            }
         }
         let cancel = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -60,6 +65,13 @@ class CountryTableVC: UITableViewController {
         self.present(alertController, animated: true)
     }
     
+    private func alredyHasItemAlert(){
+        let alert = UIAlertController(title: "Alert", message: "Already have this", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive)
+        alert.addAction(cancel)
+        self.present(alert, animated: true)
+    }
+    
     // MARK: - TableView DataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.countries.count
@@ -67,9 +79,11 @@ class CountryTableVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
+        let country = countries[indexPath.row]
         cell.setupUI(for: .country)
-        cell.countryLabel.text = countries[indexPath.row].name
-        cell.continentLabel.text = countries[indexPath.row].continent!.name
+        cell.countryLabel.text = country.name
+        cell.continentLabel.text = country.continent!.name
+        cell.cityLabel.text = " cities counter - \(String(describing: country.cities!.count))"
         return cell
     }
 

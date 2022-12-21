@@ -76,29 +76,48 @@ class DataManager{
         return continents
     }
     
-    func fetchCountries() -> [Country]{
+    func fetchCountries(withPredicate: Bool, continent: Continent?) -> [Country]{
         let request: NSFetchRequest<Country> = Country.fetchRequest()
         var countries: [Country] = []
         
-        do {
-            try countries = persistentContainer.viewContext.fetch(request)
-        } catch let error {
-            print("error - \(error)")
+        if withPredicate {
+            guard let continent = continent else {return []}
+            request.predicate = NSPredicate(format: "continent = %@",continent)
+            do {
+                try countries = persistentContainer.viewContext.fetch(request)
+            } catch let error {
+                print("error - \(error)")
+            }
+        } else {
+            do {
+                try countries = persistentContainer.viewContext.fetch(request)
+            } catch let error {
+                print("error - \(error)")
+            }
         }
         
         return countries
     }
     
-    func fetchCities() -> [City] {
+    func fetchCities(withPredicate: Bool, country: Country?) -> [City] {
         let request: NSFetchRequest<City> = City.fetchRequest()
         var cities: [City] = []
         
-        do {
-            try cities = persistentContainer.viewContext.fetch(request)
-        } catch let error {
-            print("error - \(error)")
+        if withPredicate {
+            guard let country = country else {return []}
+            request.predicate = NSPredicate(format: "country = %@", country)
+            do {
+                try cities = persistentContainer.viewContext.fetch(request)
+            } catch let error {
+                print("error - \(error)")
+            }
+        } else {
+            do {
+                try cities = persistentContainer.viewContext.fetch(request)
+            } catch let error {
+                print("error - \(error)")
+            }
         }
-        
         return cities
     }
     

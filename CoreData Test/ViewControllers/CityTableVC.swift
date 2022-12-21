@@ -14,12 +14,12 @@ class CityTableVC: UITableViewController {
     //MARK: - View Life Circle
     override func viewDidLoad() {
         super.viewDidLoad()
-        cities = DataManager.shared.fetchCities()
+        cities = DataManager.shared.fetchCities(withPredicate: false, country: nil)
         setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        cities = DataManager.shared.fetchCities()
+        cities = DataManager.shared.fetchCities(withPredicate: false, country: nil)
         self.tableView.reloadData()
     }
     
